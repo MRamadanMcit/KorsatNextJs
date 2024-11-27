@@ -6,10 +6,10 @@ interface User {
   email: string;
 }
 
-const UsersPage = async() => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users', {next: {revalidate: 10}});
+const UsersPage = async () => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users", {cache: 'no-store'});
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const users : User[] = await res.json();
+  const users: User[] = await res.json();
 
   return (
     <div>
@@ -17,6 +17,7 @@ const UsersPage = async() => {
         Home
       </Link>
       <h1 className="mb-3">Users</h1>
+      <div className="mb-3">{new Date().toLocaleTimeString()}</div>
       {users.map((user) => (
         <div key={user?.id} className="mb-5">
           <div>{user?.name}</div>
